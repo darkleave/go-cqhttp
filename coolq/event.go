@@ -7,6 +7,7 @@ import (
 	"path"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/Mrs4s/MiraiGo/binary"
 	"github.com/Mrs4s/MiraiGo/client"
@@ -131,6 +132,20 @@ func (bot *CQBot) groupMessageEvent(c *client.QQClient, m *message.GroupMessage)
 	gm := bot.formatGroupMessage(m)
 	if gm == nil {
 		return
+	}
+	if m.Sender.Uin == 1210641757 && cqm == "骰子街go"{
+		var msg = message.NewSendingMessage()
+		msg.Append(message.NewText("桌游发车"))
+		c.SendGroupMessage(m.GroupCode,msg)
+		time.Sleep(1 * time.Second)
+		msg = message.NewSendingMessage()
+		msg.Append(message.NewText("《骰子街》\n【人数】1=2-4\n【教学】带教学\n【类型】毛线,聚会,愚骰\n【时长】60-90\n【房名】kk10\n【密码】110\n【语音】https://kook.top/vAgYux\n<测试发车>"))
+		c.SendGroupMessage(m.GroupCode,msg)
+		time.Sleep(1 * time.Second)
+		var timeout = time.Now().Add(30 * time.Minute)
+		msg = message.NewSendingMessage()
+		msg.Append(message.NewText(strconv.Itoa(timeout.Hour()) + ":" + strconv.Itoa(timeout.Minute())))
+		c.SendGroupMessage(m.GroupCode,msg)
 	}
 	gm.Others["message_id"] = id
 	bot.dispatch(gm)
